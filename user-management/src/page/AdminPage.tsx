@@ -1,6 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Card, CardContent, Typography, Button, TextField } from '@mui/material';
-import { getUsers, saveUser, Users } from '../utils/LocalForage';
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  TextField,
+} from "@mui/material";
+import { getUsers, saveUser, Users } from "../utils/LocalForage";
 
 const AdminPage = () => {
   const [users, setUsers] = useState<Users[]>([]);
@@ -18,18 +25,23 @@ const AdminPage = () => {
       await saveUser(editedUser);
       // Show success message or update state
     } catch (error) {
-      console.error('Error saving user:', error);
+      console.error("Error saving user:", error);
       // Handle error state or show error message
     }
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <Typography variant="h4" gutterBottom>
         Admin Page
       </Typography>
       {users.map((user) => (
-        <Card key={user.id} sx={{ width: 400, margin: '10px', padding: '10px' }}>
+        <Card
+          key={user.id}
+          sx={{ width: 400, margin: "10px", padding: "10px" }}
+        >
           <CardContent>
             <Typography variant="h6">{user.name}</Typography>
             <TextField

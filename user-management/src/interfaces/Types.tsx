@@ -7,10 +7,9 @@ export interface User {
   phoneNumber: string;
   role: string;
 }
-export  interface AuthContextType {
-  user: User ;
+export interface AuthContextType {
+  user: User;
   login: (username: string, password: string) => Promise<User>;
   logout: () => void;
-  isLoggedIn: boolean
-  }
-  
+  isLoggedIn: boolean;
+}

@@ -1,58 +1,44 @@
-import React, { createContext, useState, useEffect, FC, ReactNode } from 'react';
-import { User, AuthContextType } from '../interfaces/Types';
-import { getUserByUsername } from '../utils/LocalForage';
+import React, { createContext, useState, FC, ReactNode } from "react";
+import { User, AuthContextType } from "../interfaces/Types";
+import { getUserByUsername } from "../utils/LocalForage";
 
 const defaultUser: User = {
   id: 0,
-  username: '',
-  password: '',
-  name: '',
-  address: '',
-  phoneNumber: '',
-  role: ''
+  username: "",
+  password: "",
+  name: "",
+  address: "",
+  phoneNumber: "",
+  role: "",
 };
 
 export const AuthContext = createContext<AuthContextType>({
   user: defaultUser,
   isLoggedIn: false,
   login: async () => {
-    throw new Error('login function not yet implemented');
+    throw new Error("login function not yet implemented");
   },
   logout: () => {
-    throw new Error('logout function not yet implemented');
+    throw new Error("logout function not yet implemented");
   },
 });
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User>(defaultUser);
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const userFromDB = await getUserByUsername('username');
-  //       console.log('fetched data')
-  //       setUser(userFromDB || defaultUser);
-  //     } catch (error) {
-  //       console.error('Error fetching user:', error);
-  //     }
-  //   };
-  //   fetchUser();
-  // }, []);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const login = async (username: string, password: string): Promise<User> => {
     try {
       const user = await getUserByUsername(username);
-      console.log(`Retrieved user: `, user)
+      console.log(`Retrieved user: `, user);
       if (user && user.password === password) {
         setUser(user);
-        setIsLoggedIn(true)
+        setIsLoggedIn(true);
         return user;
       } else {
-        throw new Error('Invalid username or password');
+        throw new Error("Invalid username or password");
       }
-    } catch (error:any) {
-      throw new Error('Error logging in: ' + error.message);
+    } catch (error: any) {
+      throw new Error("Error logging in: " + error.message);
     }
   };
 
